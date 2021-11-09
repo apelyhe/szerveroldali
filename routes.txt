@@ -1,0 +1,81 @@
+
+- index.html - belépés, top autok listaja, vagy tovább az autok.html-re
+- autok.html - összes auto felsorolasa, tovabblepesi lehetoseg az auto-adatlap.html-re
+- auto-adatlap.html - egy adott auto tulajdonsagait tartalmazza
+- bejelentkezes.html - belepesi lehetoseg, tovabblepesi lehetoseg a regisztracio.html-re
+- regisztracio.html - regisztralas
+- admin.html - ha a felhasznalo bejelentkezett es admin akkor ez az o "index.html-je"
+- hozzaadas.html - uj auto hozzaadasa, ha be van jelentkezve az illeto
+- torles.html - autok torlese, ha be van jelentkezve az illeto
+
+
+------------------------------------------------------------------------------------------------
+
+
+Routing:
+
+- nincs www. és az url végén nincs '/' 
+
+GET /                           - index.html
+    authMW();
+    getTopAutokMW();
+    renderMW();             <------- ha be van lépve akkor admin.html, ha nincs akkor index.html !
+
+
+GET /auto                       - autok.html
+    getAutokMW();
+    renderMW();
+
+GET /auto/:autoid/adatlap       - auto-adatlap.html
+    getAutoMW();
+    renderMW();
+
+
+GET, POST /bejelentkezes        - bejelentkezes.html
+    checkUserCredentialsMW();
+    renderMW();
+
+
+GET, POST /regisztracio               - regisztracio.html
+    regUserMW();                <----- hasonlo mint a saveAutoMW
+    renderMW();
+
+
+GET, POST /hozzaadas                  - hozzaadas.html, ha kitolti a mezoket es ok-ot nyom, redirect az admin.html-re
+    authMW();
+    saveAutoMW() {
+        if typeof(req.body.name === 'undefined' ...) return next();         <-------- ha get jön, akkor nincs semmi a req.body-ban, így csak next-et hív
+    }                                                                                 amúgy meg elmentjük (hacsak nincs error)
+    
+    renderMW();
+    
+
+GET /torles                     - torles.html
+    authMW();
+    renderMW();
+
+GET /torles/auto/:autoid        
+    authMW();
+    getAutoMW()         <----- csekkolni, hogy van e ilyen id-vel auto, ha nem akkor redirect('/torles'), ha van res.locals.auto = result
+    deleteAutoMW() {
+        res.locals.auto.delete();
+        res.redirect('/torles');
+    }
+
+
+Middlewarek:
+
+/middleware/auth
+    authMW 
+    checkUserCredentialsMW
+    regUserMW
+
+/middleware/common
+    renderMW
+
+/middleware/auto
+    getTopAutokMW  
+    getAutokMW
+    getAutoMW
+    saveAutoMW
+    deleteAutoMW

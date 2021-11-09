@@ -1,0 +1,13 @@
+.carousel-inner img {
+    height: 500px;
+}
+.properties-div {
+    margin-top: 3cm;
+}
+.table {
+    margin-left: 2cm;
+    width: 70%;
+}
+.table th {
+    width: 50%;
+}

@@ -1,0 +1,33 @@
+<%- include('header&footer/header') -%>
+            <div class="row justify-content-center">
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Márka</th>
+                                <th scope="col">Model</th>
+                                <th scope="col">Évjárat</th>
+                                <th scope="col">Ár (Ft)</th>
+                                <th scope="col">Adatlap</th>
+                            </tr>
+                        </thead>
+                        <tbody>                            
+                            <% autok.forEach(function(auto) { %>
+                                <tr>
+                                    <td><%= auto.marka %> </td>
+                                    <td><%= auto.model %> </td>
+                                    <td><%= auto.evjarat %> </td>
+                                    <td><%= auto.ar %> </td>
+                                    <td><a href='/auto/<%= auto._id %>/adatlap'>Érdekel</a></td>
+                                </tr>
+                            <% }); %> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </main>
+
+    <%- include('header&footer/footer') -%>

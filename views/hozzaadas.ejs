@@ -1,0 +1,75 @@
+<%- include('header&footer/header') -%>
+    <main>
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label for="marka">Márka</label>
+                <input type="text" class="form-control" id="marka" name="marka">
+            </div>
+
+            <div class="mb-3">
+                <label for="model">Model</label>
+                <input type="text" class="form-control" id="model" name="model">
+            </div>
+
+            <div class="mb-3">
+                <label for="evjarat">Évjárat</label>
+                <input type="number" class="form-control" id="evjarat" name="evjarat">
+            </div>
+
+            <label for="allapot">Állapot</label>
+            <select class="form-select" name="allapot" id="allapot" aria-label="Default select example">
+                <option selected>Kérem válassz</option>
+                <option value="Kitűnő">Kitűnő</option>
+                <option value="Sérülésmentes">Sérülésmentes</option>
+                <option value="Normál">Normál</option>
+                <option value="Sérűlt">Sérűlt</option>
+            </select><br>
+
+            <div class="mb-3">
+                <label for="km_ora">Kilóméteróra állása</label>
+                <input type="number" class="form-control" id="km_ora" name="km_ora">
+            </div>
+
+            <label for="uzemanyag">Üzemanyag</label>
+            <select class="form-select" name="uzemanyag" id="uzemanyag" aria-label="Default select example">
+                <option selected>Kérem válassz</option>
+                <option value="Benzin">Benzin</option>
+                <option value="Gázolaj">Gázolaj</option>
+            </select><br>
+
+            <div class="mb-3">
+                <label for="hengerurtartalom">Hengerűrtartalom</label>
+                <input type="number" class="form-control" id="hengerurtartalom" name="hengerurtartalom">
+            </div>
+
+            <label for="hajtas">Hajtás</label>
+            <select class="form-select" name="hajtas" id="hajtas" aria-label="Default select example">
+                <option selected>Kérem válassz</option>
+                <option value="Első kerék">Első kerék</option>
+                <option value="Hátsó kerék">Hátsó kerék</option>
+                <option value="Összkerék">Összkerék</option>
+            </select><br>
+
+            <div class="mb-3">
+                <label for="ar">Ár</label>
+                <input type="number" class="form-control" id="ar" name="ar">
+            </div>
+
+            <div class="mb-3">
+                <label for="tel">Telefonszám</label>
+                <input type="tel" class="form-control" id="tel" name="tel">
+            </div>
+
+            <div class="mb-3">
+                <label for="pictures">Fényképek feltöltése</label><br><br>
+                <input type="file" name="pictures" id="picturesh" />
+            </div><br>
+
+            <input type="submit" class="btn btn-success" value="Mentés" />
+        </form>
+    </main>
+    </div>
+
+
+    <%- include('header&footer/footer') -%>

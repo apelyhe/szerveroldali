@@ -1,0 +1,81 @@
+<%- include('header&footer/adatlap-header') -%> 
+
+<main>
+<!--
+  
+  TODO MULTER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+  
+  <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block mx-auto" src="https://hasznaltauto.medija.hu/7368/12076389_1.jpg">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block mx-auto"
+          src="https://upload.wikimedia.org/wikipedia/commons/e/e6/2003_Ford_Focus_Zetec_1.6_Front.jpg">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+-->
+
+  
+  <div class="properties-div">
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <th>Márka</th>
+          <td><%= auto.marka %> </td>
+        </tr>
+        <tr>
+          <th>Model</th>
+          <td><%= auto.model %> </td>
+        </tr>
+        <tr>
+          <th>Évjárat</th>
+          <td><%= auto.evjarat %> </td>
+        </tr>
+        <tr>
+          <th>Állapot</th>
+          <td><%= auto.allapot %> </td>
+        </tr>
+        <tr>
+          <th>Kilóméteróra állása</th>
+          <td><%= auto.km_ora %> </td>
+        </tr>
+        <tr>
+          <th>Üzemanyag</th>
+          <td><%= auto.uzemanyag %> </td>
+        </tr>
+        <tr>
+          <th>Hengerűrtartalom (cm³)</th>
+          <td><%= auto.hengerurtartalom %> </td>
+        </tr>
+        <tr>
+          <th>Hajtás</th>
+          <td><%= auto.hajtas %> </td>
+        </tr>
+        <tr>
+          <th>Ár</th>
+          <td><%= auto.ar %> </td>
+        </tr>
+        <tr>
+          <th>Elérhetőség</th>
+          <td><%= auto.tel %> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<%- include('header&footer/footer') -%> 

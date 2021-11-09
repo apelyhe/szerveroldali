@@ -1,0 +1,51 @@
+<%- include('header&footer/login-header') -%>
+
+<body class="bg-light">
+
+    <div class="container py-4">
+
+        <main>
+            <div class="home-page-icon">
+                <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor"
+                        class="bi bi-graph-up" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M0 0h1v15h15v1H0V0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5z" />
+                    </svg>
+                </a>
+            </div>
+            <div class="text-center" style="padding:50px 0">
+                <div class="logo">bejelentkezés</div>
+                <!-- Main Form -->
+                <div class="login-form-1">
+                    <form id="login-form" class="text-left" method="POST">
+                        <div class="login-form-main-message"></div>
+                        <div class="main-login-form">
+                            <div class="login-group">
+                                <div class="form-group">
+                                    <label for="username" class="sr-only">felhasználónév</label>
+                                    <input type="text" class="form-control" id="username" name="username"
+                                        placeholder="felhasználónév">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="sr-only">jelszó</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="jelszó">
+                                </div>
+                                <div class="form-group login-group-checkbox">
+                                    <input type="checkbox" id="lg_remember" name="lg_remember">
+                                    <label for="lg_remember">emlékezz rám</label>
+                                </div>
+                            </div>
+                            <input type="submit" class="login-button" value=">" />
+                        </div>
+                        <div class="etc-login-form">
+                            <p>új felhasználó vagy? <a href="/regisztracio">regisztálj</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <%- include('header&footer/login-footer') -%> 
