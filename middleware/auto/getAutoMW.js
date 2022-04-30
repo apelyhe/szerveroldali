@@ -4,14 +4,11 @@
 
 const requireOption = require('../requireOption');
 
-module.exports = function (objectrepository) {
-
+module.exports = function(objectrepository) {
     const autoModel = requireOption(objectrepository, 'autoModel');
 
-    return function (req, res, next) {
-        const idToFind = req.params.autoid;
-        autoModel.findOne({_id:idToFind}, (err, auto)=> {
-            
+    return function(req, res, next) {
+        autoModel.findOne({ _id: req.params.autoid }, (err, auto) => {
             if (err || !auto) {
                 return next(err);
             }
@@ -19,7 +16,5 @@ module.exports = function (objectrepository) {
             res.locals.auto = auto;
             return next();
         });
-
     };
-
 };

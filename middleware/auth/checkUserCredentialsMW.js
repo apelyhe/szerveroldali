@@ -1,25 +1,42 @@
+
+var requireOption = require('../requireOption');
+
 /**
  * checks whether the username & password are valid
  * if valid redirect to /admin
  */
 module.exports = function (objectrepository) {
+  
+  var userModel = requireOption(objectrepository, 'userModel');
 
   return function (req, res, next) {
-
-    if (typeof req.body.username === 'undefined' ||
-      typeof req.body.password === 'undefined') {
+    // not enough parameters
+    if ((typeof req.body === 'undefined') || (typeof req.body.name === 'undefined') ||
+      (typeof req.body.password === 'undefined')) {
       return next();
     }
 
-    // if req.body.username is in db and pw is correct redirect to admin 
-    // else res.locals.error 'Hibas jelszo'
-    if (req.body.username === 'adam' && req.body.password === 'asd123') {
-      req.session.belepve = true;
-      return req.session.save(err => res.redirect('/admin'));
-    }
+    // checks if user exists
+    userModel.findOne({
+      name: req.body.name
+    }, function (err, result) {
+      if ((err) || (!result)) {
+        res.locals.err = 'Hibás felhasználónév!';
+        return next();
+      }
 
-    res.locals.error = 'Hibás jelszó!';
-    return next();
+      //check password
+      if (result.password !== req.body.password) {
+        res.locals.err = 'Hibás jelszó!';
+        return next();
+      }
+
+      //login is ok, save id to session
+      req.session.userid = result._id;
+
+      //redirect to / so the app can decide where to go next
+      return res.redirect('/');
+    });
   };
 
 };

@@ -1,0 +1,44 @@
+<%- include('header&footer/header') -%>
+
+  <main>
+    <div class="p-5 mb-4 bg-light rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Ellenőrzött használt autók jó áron</h1>
+        <p class="col-md-8 fs-4">Magyarország első ellenőrzött használt autókereskedése. Vásároljon kitűnő
+          áron minősített eladóktól!</p>
+        <a class="btn btn-lg btn-primary" href="/auto" role="button">Mutasd az autókat &raquo;</a>
+        <a class="btn btn-lg btn-success" href="/hozzaadas" role="button">Autó hozzáadása &raquo;</a>
+        <a class="btn btn-lg btn-danger" href="/torles" role="button">Autó eltávolítása &raquo;</a>
+      </div>
+    </div>
+    <div class="p-5 mb-4 bg-light rounded-3">
+      <div class="container-fluid">
+        <h2 class="fw-bold">Legolcsóbb autóink</h2><br><br>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Márka</th>
+              <th scope="col">Model</th>
+              <th scope="col">Ár (Ft)</th>
+            </tr>
+          </thead>
+          <tbody>                            
+            <% topAutok.forEach(function(auto) { %>
+                <tr>
+                    <td><%= auto.marka %> </td>
+                    <td><%= auto.model %> </td>
+                    <td><%= auto.evjarat %> </td>
+                    <td><%= auto.ar %> </td>
+                    <td><a href='/auto/<%= auto.id %>/adatlap'>Érdekel</a></td>
+                </tr>
+            <% }); %> 
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  </div>
+
+
+  <%- include('header&footer/footer') -%>

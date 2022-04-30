@@ -11,7 +11,8 @@ const Auto = db.model('Auto', {
     hengerurtartalom : String,
     hajtas : String,
     ar : Number,
-    tel : Number,
+    tel : String,
+    img: String
 });
 
 module.exports = Auto;

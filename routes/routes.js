@@ -3,8 +3,10 @@ const authMW = require('../middleware/auth/authMW');
 const checkUserCredentialsMW = require('../middleware/auth/checkUserCredentialsMW');
 const regUserMW = require('../middleware/auth/regUserMW');
 const logoutMW = require('../middleware/auth/logoutMW');
+const inverseAuthMW = require('../middleware/auth/inverseAuthMW');
 
 const renderMW = require('../middleware/common/renderMW');
+const mainRedirectMW = require('../middleware/common/mainRedirectMW');
 
 const deleteAutoMW = require('../middleware/auto/deleteAutoMW');
 const getAutokMW = require('../middleware/auto/getAutokMW');
@@ -13,50 +15,33 @@ const getTopAutokMW = require('../middleware/auto/getTopAutokMW');
 const saveAutoMW = require('../middleware/auto/saveAutoMW');
 
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ dest: 'static/uploads/' });
 
-const userModel = require('../models/user');
-const autoModel = require('../models/auto');
+
+const user = require('../models/user');
+const auto = require('../models/auto');
 
 module.exports = function (app) {
-
+    
     const objectRepository = {
-        userModel: userModel,
-        autoModel: autoModel
+        userModel: user,
+        autoModel: auto
     };
-
+    
     /**
-     * main page / admin page
-                    * TODO: if user logged in admin.html should appear,
-                    * otherwise index.html
-     */
-
-    app.get('/admin',
-        authMW(objectRepository),
-        getTopAutokMW(objectRepository),
-        renderMW(objectRepository, 'admin')
+     * kezdolap.html
+    */
+    app.get('/kezdolap',
+    authMW(objectRepository),
+    getTopAutokMW(objectRepository),
+    renderMW(objectRepository, 'kezdolap')
     );
-
-    /**
-     * auto-adatlap.html
-     */
-    app.get('/auto/:autoid/adatlap',
-        getAutoMW(objectRepository),
-        renderMW(objectRepository, 'auto-adatlap')
-    );
-
-    /**
-     * autok.html
-     */
-    app.get('/auto',
-        getAutokMW(objectRepository),
-        renderMW(objectRepository, 'autok')
-    );
-
+    
     /**
      * bejelentkezes.html
      */
     app.use('/bejelentkezes',
+        inverseAuthMW(objectRepository),
         checkUserCredentialsMW(objectRepository),
         renderMW(objectRepository, 'bejelentkezes')
     );
@@ -65,24 +50,27 @@ module.exports = function (app) {
      * regisztracio.html
      */
     app.use('/regisztracio',
+        inverseAuthMW(objectRepository),
         regUserMW(objectRepository),
         renderMW(objectRepository, 'regisztracio')
     );
 
     /**
-     * hozzaadas.html
-     */
-    app.use('/hozzaadas',
+    * autok.html
+    */
+    app.get('/auto',
         authMW(objectRepository),
-        upload.single('pictures'),            // 5 kép feltöltése
-        saveAutoMW(objectRepository),
-        renderMW(objectRepository, 'hozzaadas')
+        getAutokMW(objectRepository),
+        renderMW(objectRepository, 'autok')
     );
 
-
-    app.get('/torles/auto/:autoid',
+    /**
+     * auto-adatlap.html
+     */
+    app.get('/auto/:autoid/adatlap',
         authMW(objectRepository),
-        deleteAutoMW(objectRepository)
+        getAutoMW(objectRepository),
+        renderMW(objectRepository, 'auto-adatlap')
     );
 
     /**
@@ -94,14 +82,28 @@ module.exports = function (app) {
         renderMW(objectRepository, 'torles')
     );
 
-    app.get('/kijelentkezes',
-        logoutMW(objectRepository),
-        renderMW(objectRepository, 'index')
+    app.get('/torles/auto/:autoid',
+        authMW(objectRepository),
+        getAutoMW(objectRepository),
+        deleteAutoMW(objectRepository)
+    );
+
+    /**
+     * hozzaadas.html
+     */
+    app.use('/hozzaadas',
+        authMW(objectRepository),
+        upload.single('photo'),     // kép feltöltése
+        saveAutoMW(objectRepository),
+        renderMW(objectRepository, 'hozzaadas')
+    );
+
+    app.use('/kijelentkezes',
+        logoutMW(objectRepository)
     );
 
     app.get('/',
-        getTopAutokMW(objectRepository),
-        renderMW(objectRepository, 'index')
+        mainRedirectMW(objectRepository)
     );
 
 }

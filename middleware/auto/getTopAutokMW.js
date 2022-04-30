@@ -2,32 +2,39 @@
  *  get the list of the autos from db and puts it to res.locals.topautok
  */
 
- const requireOption = require('../requireOption');
+const requireOption = require('../requireOption');
 
  module.exports = function(objectrepository) {
-
     const autoModel = requireOption(objectrepository, 'autoModel');
-
-    return function (req, res, next)  {
-
-        // let topArray = res.locals.autok;
-
-        // for(let j=0;j<topArray.length;j++) {
-        //     for(let i = 0; i < topArray.length; i++) {
-        //         if(topArray[i]>topArray[i+1]) {
-        //             var temp = topArray[i];
-        //             topArray[i] = topArray[i+1];
-        //             topArray[i+1] = temp;
-        //         }
-        //     }
-        // }      
-
-        // res.locals.topAutok = topArray;
-
-        autoModel
-            .findOne({})
-
-        return next();
+    return function(req, res, next) {
+        // maaaagic....
+        autoModel.aggregate(
+            [
+                {
+                    $sort: {
+                        ar: 1
+                    }
+                },
+                {
+                    $limit: 5
+                }
+            ],
+            function(err, result) {
+                if (err) {
+                    return next(err);
+                }
+                res.locals.topAutok = result.map(e => {
+                    return { 
+                        id: e._id,
+                        marka: e.marka,
+                        model: e.model,
+                        evjarat: e.evjarat,
+                        ar: e.ar
+                     };
+                });
+                return next();
+            }
+        );
     };
 
 };

@@ -4,19 +4,18 @@
 
 const requireOption = require('../requireOption');
 
-module.exports = function (objectrepository) {
-    const autoModel = requireOption(objectrepository, 'autoModel');
+module.exports = function(objectrepository) {
+    return function(req, res, next) {
+        if (typeof res.locals.auto === 'undefined') {
+            return next();
+        }
 
-    return function (req, res, next) {
-
-        autoModel.remove({_id: req.params.autoid}, err=>{
+        res.locals.auto.remove(err => {
             if (err) {
                 return next(err);
             }
 
-            res.redirect('/torles');
+            return res.redirect('/auto');
         });
-
     };
-
 };

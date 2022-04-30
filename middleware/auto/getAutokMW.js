@@ -18,11 +18,11 @@ module.exports = function (objectrepository) {
             if (err) {
                 return next(err);
             }
-
             res.locals.autok = autok;
-
             return next();
         });
+
+
     };
 
 

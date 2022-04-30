@@ -21,25 +21,16 @@
             <th scope="col">Ár (Ft)</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1.</th>
-            <td>Mercedes</td>
-            <td>A160</td>
-            <td>585.000</td>
-          </tr>
-          <tr>
-            <th scope="row">2.</th>
-            <td>Suzuki</td>
-            <td>SX4</td>
-            <td>920.000</td>
-          </tr>
-          <tr>
-            <th scope="row">3.</th>
-            <td>Ford</td>
-            <td>Focus</td>
-            <td>1.505.000</td>
-          </tr>
+        <tbody>                         
+          <% autok.forEach(function(auto) { %>
+              <tr>
+                  <td><%= auto.marka %> </td>
+                  <td><%= auto.model %> </td>
+                  <td><%= auto.evjarat %> </td>
+                  <td><%= auto.ar %> </td>
+                  <td><a href='/auto/<%= auto._id %>/adatlap'>Érdekel</a></td>
+              </tr>
+          <% }); %> 
         </tbody>
       </table>
     </div>

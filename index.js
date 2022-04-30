@@ -1,17 +1,24 @@
-const { urlencoded } = require('express');
+
 const express = require('express');
 const app = express();
-const session = require('express-session');
 
+const session = require('express-session');
+var bodyParser = require('body-parser');
 
 app.set('view engine', 'ejs');
 app.use(express.static('static'));
 app.use(express.urlencoded());
 app.use(express.json());
 
-app.use(session({
-    secret: 'secret'
-}));
+/**
+ * Session above all
+ */
+ app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: false
+  }));
+
 
 require('./routes/routes')(app);
 
